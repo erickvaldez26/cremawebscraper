@@ -74,7 +74,8 @@ def main():
   # save_json(dataTournamentMatches, "tournament_matches")
   print(f"✅ Se guardaron {len(dataTournamentMatches)} registros de Partidos en Firestore", flush=True)
   print("🕒 Esperando antes de cerrar contenedor (Railway test)...", flush=True)
-  time.sleep(60)
+  time.sleep(4)
+  print("🔥🔥🔥 Desplegado 🔥🔥🔥")
   
 if __name__ == "__main__":
   main()
