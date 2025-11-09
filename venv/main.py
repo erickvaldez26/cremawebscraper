@@ -50,7 +50,7 @@ def main():
     "teams": dataTableClosing
   })
   # save_json(dataTableClosing, "standings_closing")
-  print(f"✅ Se guardaron {len(dataTableClosing)} registros las posiciones del clausura en Firestore")
+  print(f"✅ Se guardaron {len(dataTableClosing)} registros las posiciones del clausura en Firestore", flush=True)
   
   # Obtener la tabla de posiciones Liga 1 - Acumulado
   standingsCumulativeScraper = GetStandingsCumulativeScraper("https://www.futbolperuano.com/liga-1/clausura/tabla-de-posiciones")

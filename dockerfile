@@ -14,4 +14,4 @@ COPY . .
 ENV PYTHONUNBUFFERED=1
 
 # --- Comando principal ---
-CMD ["python", "main.py"]
+CMD ["python", "venv/main.py"]
