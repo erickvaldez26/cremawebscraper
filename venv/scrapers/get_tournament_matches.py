@@ -32,7 +32,7 @@ class GetTournamentMatchesScraper(BaseScraper):
     return hora.replace("AM", "a.m.").replace("PM", "p.m.").replace("am", "a.m.").replace("pm", "p.m.")
   
   def format_response(self, data):
-    result = []
+    grouped = {}
     for fixture in data:
       fixture_name = fixture.get("fixture_date")
       matches = []
@@ -45,7 +45,12 @@ class GetTournamentMatchesScraper(BaseScraper):
           if "Universitario" not in (home, away):
               continue
 
-          matches.append({
+          month = match["date"].split(" ")[-2]
+          
+          if month not in grouped:
+            grouped[month] = []
+
+          grouped[month].append({
               "home_team": match["home_team"],
               "away_team": match["away_team"],
               "date": self.format_date(match["date"]),
@@ -56,13 +61,12 @@ class GetTournamentMatchesScraper(BaseScraper):
           })
 
       # Solo agregar si hay partidos de Universitario en ese fixture
-      if matches:
-          result.append({
-              "fixture": fixture_name,
-              # Usa el mes del primer partido para el campo "date"
-              "date": fixture["matches"][0]["date"].split(" ")[-2],
-              "matches": matches
-          })
+      result = []
+      for month, matches in grouped.items():
+        result.append({
+          "date": month,
+          "matches": matches
+        })
     return result
   
   def scrape(self):

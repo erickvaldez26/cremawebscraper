@@ -51,3 +51,6 @@ temp/
 .render/
 railway.json
 .python-version
+
+# ---- Firebase ----
+serviceAccountKey.json
