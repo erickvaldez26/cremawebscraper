@@ -8,6 +8,8 @@ def init_firebase():
   
   if not firebase_key_str:
     raise ValueError("❌ FIREBASE_KEY no encontrada en variables de entorno.")
+  else:
+    print("✅ FIREBASE_CREDENTIALS detectada correctamente.")
   
   firebase_key = json.loads(firebase_key_str)
   cred = credentials.Certificate(firebase_key)

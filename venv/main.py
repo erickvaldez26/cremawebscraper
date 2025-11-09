@@ -8,6 +8,8 @@ from core.storage import save_csv, save_json
 from core.firebase_config import init_firebase
 
 def main():
+  print("🚀 Iniciando script en Railway...")
+  
   # Inicializar Firebase
   db = init_firebase()
   
