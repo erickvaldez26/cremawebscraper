@@ -1,0 +1,53 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---- IDEs / Editors ----
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ---- Logs and outputs ----
+*.log
+logs/
+*.out
+*.err
+
+# ---- Data / Cache ----
+*.csv
+*.json
+*.xlsx
+*.db
+*.sqlite3
+*.parquet
+*.pkl
+.cache/
+pip-wheel-metadata/
+build/
+dist/
+
+# ---- OS / System files ----
+.DS_Store
+Thumbs.db
+
+# ---- Python packaging ----
+*.egg
+*.egg-info/
+.eggs/
+MANIFEST
+
+# ---- PyInstaller ----
+*.spec
+
+# ---- Temporary files ----
+tmp/
+temp/
+
+# ---- Render / Railway / Deployment configs ----
+.render/
+railway.json
+.python-version
