@@ -6,9 +6,12 @@ from scrapers.get_standings_cumulative import GetStandingsCumulativeScraper
 from scrapers.get_tournament_matches import GetTournamentMatchesScraper
 from core.storage import save_csv, save_json
 from core.firebase_config import init_firebase
+import sys
+import time
 
 def main():
-  print("🚀 Iniciando script en Railway...")
+  print("🔥 Iniciando aplicación...", flush=True)
+  sys.stdout.flush()
   
   # Inicializar Firebase
   db = init_firebase()
@@ -19,7 +22,7 @@ def main():
   for news_item in dataRecentNews:
     db.collection("recent_news").document().set(news_item)
   # save_json(dataRecentNews, "recent_news")
-  print(f"✅ Se guardaron {len(dataRecentNews)} registros de noticias recientes en Firestore")
+  print(f"✅ Se guardaron {len(dataRecentNews)} registros de noticias recientes en Firestore", flush=True)
   
   # Obtener todas las noticias de universitario
   allNewsScraper = AllNewsScraper("https://universitario.pe/noticias")
@@ -27,7 +30,7 @@ def main():
   for news_item in dataAllNews:
     db.collection("all_news").document().set(news_item)
   # save_json(dataAllNews, "all_news")
-  print(f"✅ Se guardaron {len(dataAllNews)} registros de todas las noticias en Firestore")
+  print(f"✅ Se guardaron {len(dataAllNews)} registros de todas las noticias en Firestore", flush=True)
   
   # Obtener la tabla de posiciones Liga 1 - Apertura
   standingsOpeningScraper = GetStandingsOpeningScraper("https://www.futbolperuano.com/liga-1/tabla-de-posiciones")
@@ -37,7 +40,7 @@ def main():
     "teams": dataTableOpening
   })
   # save_json(dataTableOpening, "standings_opening")
-  print(f"✅ Se guardaron {len(dataTableOpening)} registros las posiciones del apertura en Firestore")
+  print(f"✅ Se guardaron {len(dataTableOpening)} registros las posiciones del apertura en Firestore", flush=True)
   
   # Obtener la tabla de posiciones Liga 1 - Clausura
   standingsClosingScraper = GetStandingsClosingScraper("https://www.futbolperuano.com/liga-1/clausura/tabla-de-posiciones")
@@ -57,7 +60,7 @@ def main():
     "teams": dataTableCumulative
   })
   # save_json(dataTableCumulative, "standings_cumulative")
-  print(f"✅ Se guardaron {len(dataTableCumulative)} registros las posiciones del acumulado en Firestore")
+  print(f"✅ Se guardaron {len(dataTableCumulative)} registros las posiciones del acumulado en Firestore", flush=True)
   
   tournamentMatchesScraper = GetTournamentMatchesScraper("https://www.futbolperuano.com/liga-1/clausura/")
   dataTournamentMatches = tournamentMatchesScraper.scrape()
@@ -69,7 +72,9 @@ def main():
       "matches": matches
     })
   # save_json(dataTournamentMatches, "tournament_matches")
-  print(f"✅ Se guardaron {len(dataTournamentMatches)} registros de Partidos en Firestore")
+  print(f"✅ Se guardaron {len(dataTournamentMatches)} registros de Partidos en Firestore", flush=True)
+  print("🕒 Esperando antes de cerrar contenedor (Railway test)...", flush=True)
+  time.sleep(60)
   
 if __name__ == "__main__":
   main()
