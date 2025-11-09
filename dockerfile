@@ -8,10 +8,10 @@ COPY requirements.txt ./
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # --- Copiar el código del proyecto ---
-COPY venv /app/venv
+COPY . .
 
 # --- Variable de entorno para mostrar logs en tiempo real ---
 ENV PYTHONUNBUFFERED=1
 
 # --- Comando principal ---
-CMD ["python", "venv/main.py"]
+CMD ["python", "main.py"]
