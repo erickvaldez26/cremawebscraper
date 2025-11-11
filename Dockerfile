@@ -9,6 +9,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # --- Copiar el código del proyecto ---
 COPY . .
+#COPY venv/serviceAccountKey.json ./
 
 # --- Variable de entorno para mostrar logs en tiempo real ---
 ENV PYTHONUNBUFFERED=1

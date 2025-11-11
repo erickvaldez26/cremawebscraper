@@ -14,37 +14,33 @@ from scrapers.get_standings_cumulative import GetStandingsCumulativeScraper
 from scrapers.get_tournament_matches import GetTournamentMatchesScraper
 from core.storage import save_csv, save_json
 from core.firebase_config import init_firebase
+from core.notifications import send_discord_message
 
 def main():
-  print("🔥 Iniciando aplicación...", flush=True)
-  db = init_firebase()
-  
-  # Limpiar base de datos
-  print("🧹 Limpiando colecciones...", flush=True)
-  for col in ["recent_news", "all_news", "standings", "matches"]:
-    clear_collection(db, col)
-  print("✅ Base de datos limpiada", flush=True)
-  
-  # Subir datos
-  upload_news(db)
-  upload_standings(db)
-  upload_matches(db)
-  
-  # tournamentMatchesScraper = GetTournamentMatchesScraper("https://www.futbolperuano.com/liga-1/clausura/")
-  # dataTournamentMatches = tournamentMatchesScraper.scrape()
-  # for month_data in dataTournamentMatches:
-  #   month_name = month_data["date"]
-  #   matches = month_data["matches"]
-  #   db.collection("matches").document(month_name).set({
-  #     "date": month_name,
-  #     "matches": matches
-  #   })
-  # # save_json(dataTournamentMatches, "tournament_matches")
-  # print(f"✅ Se guardaron {len(dataTournamentMatches)} registros de Partidos en Firestore", flush=True)
-  
-  print("⏳ Esperando antes de cerrar contenedor...", flush=True)
-  time.sleep(4)
-  print("🔥🔥🔥 Desplegado correctamente 🔥🔥🔥")
+  try:
+    print("🔥 Iniciando aplicación...", flush=True)
+    db = init_firebase()
+    
+    # Limpiar base de datos
+    print("🧹 Limpiando colecciones...", flush=True)
+    for col in ["recent_news", "all_news", "standings", "matches"]:
+      clear_collection(db, col)
+    print("✅ Base de datos limpiada", flush=True)
+    
+    # Subir datos
+    upload_news(db)
+    upload_standings(db)
+    upload_matches(db)
+    
+    print("⏳ Esperando antes de cerrar contenedor...", flush=True)
+    time.sleep(4)
+    send_discord_message(
+      "Scraping finalizado", 
+      "El proceso de scraping ha terminado correctamente y los datos fueron actualizados en Firebase."
+    )
+    print("🔥🔥🔥 Desplegado correctamente 🔥🔥🔥")
+  except Exception as e:
+    send_discord_message(f"❌ Error en el scraping: {e}")
 
 
 def clear_collection(db, collection_name):
