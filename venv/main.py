@@ -75,7 +75,7 @@ def upload_standings(db):
   scrapers = [
     ("apertura", GetStandingsOpeningScraper("https://www.futbolperuano.com/liga-1/tabla-de-posiciones")),
     ("clausura", GetStandingsClosingScraper("https://www.futbolperuano.com/liga-1/clausura/tabla-de-posiciones")),
-    ("acumulado", GetStandingsCumulativeScraper("https://www.futbolperuano.com/liga-1/clausura/tabla-de-posiciones")),
+    ("acumulado", GetStandingsCumulativeScraper("https://www.futbolperuano.com/liga-1/tabla-acumulada/tabla-de-posiciones")),
   ]
 
   for name, scraper in scrapers:
