@@ -13,11 +13,14 @@ class GetStandingsCumulativeScraper(BaseScraper):
     for row in tbody_tag.find_all("tr"):
       cols = row.find_all("td")
       
-      position = cols[0].get_text(strip=True)
+      if len(cols) < 10:
+        continue
       
-      team_spans = cols[1].find_all("span")
-      teamFullname = team_spans[0].get_text(strip=True)
-      teamName = team_spans[1].get_text(strip=True)
+      position = cols[0].get_text(strip=True)
+      team_cell = cols[1]
+      team_spans = team_cell.find_all("span") if team_cell else []
+      teamFullname = team_spans[0].get_text(strip=True) if len(team_spans) > 0 else ""
+      teamName = team_spans[1].get_text(strip=True) if len(team_spans) > 1 else ""
       
       matchesPlayed = cols[2].get_text(strip=True)
       matchesWon = cols[3].get_text(strip=True)
