@@ -95,9 +95,9 @@ def upload_matches(db):
   print("⚽ Obteniendo partidos del torneo...", flush=True)
 
   if is_after_cutoff():
-    scraper = GetTournamentMatchesScraper("https://www.futbolperuano.com/liga-1/resultados")
-  else:
     scraper = GetTournamentMatchesScraper("https://www.futbolperuano.com/liga-1/clausura/")
+  else:
+    scraper = GetTournamentMatchesScraper("https://www.futbolperuano.com/liga-1/resultados")
   data = scraper.scrape()
   for month_data in data:
     db.collection("matches").document(month_data["date"]).set(month_data)
