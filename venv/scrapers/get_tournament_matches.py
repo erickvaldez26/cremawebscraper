@@ -51,13 +51,13 @@ class GetTournamentMatchesScraper(BaseScraper):
             grouped[month] = []
 
           grouped[month].append({
-              "home_team": match["home_team"],
-              "away_team": match["away_team"],
+              "homeTeam": match["home_team"],
+              "awayTeam": match["away_team"],
               "date": self.format_date(match["date"]),
               "competition": match["competition"],
               "status": match["status"],
-              "match_current_time": match["match_current_time"],
-              "hour_match": self.format_hour(match["hour_match"])
+              "matchCurrentTime": match["match_current_time"],
+              "hourMatch": self.format_hour(match["hour_match"])
           })
 
       # Solo agregar si hay partidos de Universitario en ese fixture
