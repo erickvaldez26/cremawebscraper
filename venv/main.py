@@ -16,6 +16,8 @@ from scrapers.get_team import GetTeamScraper
 from core.storage import save_csv, save_json
 from core.firebase_config import init_firebase
 from core.notifications import send_discord_message
+from utils.validate_date import is_after_cutoff
+
 
 def main():
   try:
@@ -24,7 +26,7 @@ def main():
     
     # Limpiar base de datos
     print("🧹 Limpiando colecciones...", flush=True)
-    for col in ["recent_news", "all_news", "standings", "matches"]:
+    for col in ["recent_news", "all_news", "standings", "matches", "team"]:
       clear_collection(db, col)
     print("✅ Base de datos limpiada", flush=True)
     
@@ -48,6 +50,7 @@ def main():
 def clear_collection(db, collection_name):
   """Elimina todos los documentos dentro de una colección de Firestore."""
   docs = db.collection(collection_name).stream()
+  count = 0
   for count, doc in enumerate(docs, start=1):
     doc.reference.delete()
   print(f"🧹 {collection_name} limpiada ({count} documentos eliminados)", flush=True)
@@ -91,11 +94,15 @@ def upload_matches(db):
   """Obtiene y guarda los partidos del torneo."""
   print("⚽ Obteniendo partidos del torneo...", flush=True)
 
-  scraper = GetTournamentMatchesScraper("https://www.futbolperuano.com/liga-1/clausura/")
+  if is_after_cutoff():
+    scraper = GetTournamentMatchesScraper("https://www.futbolperuano.com/liga-1/resultados")
+  else:
+    scraper = GetTournamentMatchesScraper("https://www.futbolperuano.com/liga-1/clausura/")
   data = scraper.scrape()
   for month_data in data:
     db.collection("matches").document(month_data["date"]).set(month_data)
   print(f"✅ {len(data)} meses de partidos guardados", flush=True)
+
 
 def upload_team(db):
   """Obtiene y guarda la pantilla del equipo."""
