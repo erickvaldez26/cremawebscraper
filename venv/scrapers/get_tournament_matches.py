@@ -9,7 +9,7 @@ class GetTournamentMatchesScraper(BaseScraper):
         "Martes": "Mar",
         "Miércoles": "Mié",
         "Jueves": "Jue",
-        "Viernes": "Vier",
+        "Viernes": "Vie",
         "Sábado": "Sáb",
         "Domingo": "Dom"
     }
