@@ -13,20 +13,20 @@ class GetStandingsClosingScraper(BaseScraper):
     for row in tbody_tag.find_all("tr"):
       cols = row.find_all("td")
       
-      position = cols[0].get_text(strip=True)
+      position = cols[1].get_text(strip=True)
       
-      team_spans = cols[1].find_all("span")
+      team_spans = cols[2].find_all("span")
       teamFullname = team_spans[0].get_text(strip=True)
       teamName = team_spans[1].get_text(strip=True)
       
-      matchesPlayed = cols[2].get_text(strip=True)
-      matchesWon = cols[3].get_text(strip=True)
-      matchesTied = cols[4].get_text(strip=True)
-      matchesLost = cols[5].get_text(strip=True)
-      goalsScored = cols[6].get_text(strip=True)
-      goalsAgainst = cols[7].get_text(strip=True)
-      goalDifference = cols[8].get_text(strip=True)
-      points = cols[9].get_text(strip=True)
+      matchesPlayed = cols[3].get_text(strip=True)
+      matchesWon = cols[4].get_text(strip=True)
+      matchesTied = cols[5].get_text(strip=True)
+      matchesLost = cols[6].get_text(strip=True)
+      goalsScored = cols[7].get_text(strip=True)
+      goalsAgainst = cols[8].get_text(strip=True)
+      goalDifference = cols[9].get_text(strip=True)
+      points = cols[10].get_text(strip=True)
       
       data.append({
         "position": position,

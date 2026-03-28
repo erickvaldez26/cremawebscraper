@@ -33,7 +33,7 @@ class RecentNewsScraper(BaseScraper):
       category = p_tag.get_text(strip=True) if p_tag else None
       a_tag = new.find("a")
       title = a_tag.get_text(strip=True) if a_tag else None
-      news.append({"imageNew": fullImgUrl, "categoryNew": category, "titleNew": title})
+      news.append({"imageNew": fullImgUrl, "date": category, "titleNew": title})
     
     news = news[:3]
     return news
